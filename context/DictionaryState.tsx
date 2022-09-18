@@ -8,9 +8,9 @@ export default function DictionaryState({ children }: any) {
     getInputValue: "",
     word: "",
     dictionaryData: [],
-    loading: false,
+    loading: true,
     errorMessage: "",
-    randomData: { word: "", definition: "" },
+    randomData: {title:"", word: "", definition: "" },
   };
 
   let [state, dispatch] = useReducer(reducer, initialState);
@@ -53,12 +53,14 @@ export default function DictionaryState({ children }: any) {
     }
   }
   async function randomApi() {
+    state.loading = true;
     let res = await axios.get("https://random-words-api.vercel.app/word/");
     let data = res.data;
     let { word } = data[0];
     let { definition } = data[0];
 
     let randomData = {
+      title:"Word of the day",
       word,
       definition,
     };

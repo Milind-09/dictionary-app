@@ -17,6 +17,7 @@ export default function reducer(state: any, action: any) {
         word: action.payload.word,
         loading: false,
         errorMessage: "",
+        randomData:{}
       };
     case "ERROR_MESSAGE":
       return {
@@ -28,6 +29,7 @@ export default function reducer(state: any, action: any) {
       return {
         ...state,
         randomData: action.payload.randomData,
+        loading:false
       };
   }
 }

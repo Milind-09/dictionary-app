@@ -2,65 +2,33 @@ import React from "react";
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
-  FlatList,
   ActivityIndicator,
 } from "react-native";
+import RandomData from "../components/RandomData";
+import SearchBtn from "../components/SearchBtn";
+import SearchResult from "../components/SearchResult";
 import DictionaryContext from "../context/DictionaryContext";
 
 export default function Home() {
   let {
-    inputValue,
-    inputFunct,
-    getInputFunct,
-    word,
-    dictionaryData,
     loading,
     errorMessage,
-    randomData
   }: any = React.useContext(DictionaryContext);
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputStyle}>
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Enter Keyword..."
-          onChangeText={inputFunct}
-          value={inputValue}
-          placeholderTextColor={"gray"}
-        />
-      </View>
-      <TouchableOpacity style={styles.button} onPress={getInputFunct}>
-        <Text>Search</Text>
-      </TouchableOpacity>
-      <View style={styles.random}>
-        <Text>Word of the day</Text>
-        <Text>{randomData.word}: {randomData.definition}</Text>
-      </View>
+      <SearchBtn/>
+      
+      {!loading && (
+        <RandomData/>
+      )}
+
       {loading && <ActivityIndicator />}
       {errorMessage !== "" ? (
         <Text>{errorMessage}</Text>
       ) : (
-        <View>
-          <FlatList
-            data={dictionaryData.slice(0, 4)}
-            renderItem={(element) => {
-              let { definition } = element.item;
-              return (
-                <View>
-                  <TouchableOpacity>
-                    <Text>
-                      {word}: {definition}
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              );
-            }}
-          />
-        </View>
+        <SearchResult/>
       )}
     </View>
   );
@@ -85,8 +53,8 @@ let styles = StyleSheet.create({
     padding: 10,
     outlineStyle: "none",
   },
-  random:{
-    marginTop:15,
-    marginBottom:20
-  }
+  random: {
+    marginTop: 15,
+    marginBottom: 20,
+  },
 });
