@@ -8,9 +8,9 @@ export default function Details() {
 
   
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.item}>
-        <Text>{word}</Text>
+        <Text style={styles.wordStyle}>{word}</Text>
         <Text>Pronuunciation</Text>
         <Text>{pronounce.text}</Text>
         <View>
@@ -19,13 +19,13 @@ export default function Details() {
       </View>
 
       <View style={styles.item}>
-        <Text>noun:</Text>
+        <Text style={styles.wordStyle}>noun:</Text>
         <Text>{noun.definition}</Text>
         <Text>example:{noun.example}</Text>
       </View>
 
       <View style={styles.item}>
-        <Text>verb:</Text>
+        <Text style={styles.wordStyle}>verb:</Text>
         <Text>{verb.definition}</Text>
         <Text>example:{verb.example}</Text>
       </View>
@@ -34,7 +34,15 @@ export default function Details() {
 }
 let styles = StyleSheet.create({
   item: {
-    marginTop: 25,
-    marginLeft:25,
+  marginTop:20,
+  padding:10,
+    borderColor:"blue",
+    borderWidth:1,
   },
+  container:{
+    margin:20,
+  },
+  wordStyle:{
+    fontSize:18
+  }
 });

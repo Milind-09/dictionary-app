@@ -11,21 +11,24 @@ import SearchBtn from "../components/SearchBtn";
 import SearchResult from "../components/SearchResult";
 import DictionaryContext from "../context/DictionaryContext";
 
-export default function Home({navigation}:any) {
-  let { loading, errorMessage,detailsData }: any = React.useContext(DictionaryContext);
-function newScreen(){
-  navigation.navigate("Details")
-  detailsData()
-}
+export default function Home({ navigation }: any) {
+  let { loading, errorMessage, detailsData, dictionaryData }: any =
+    React.useContext(DictionaryContext);
+  function newScreen() {
+    navigation.navigate("Details");
+    detailsData();
+  }
   return (
     <View style={styles.container}>
       <SearchBtn />
 
-      {!loading && <RandomData />}
+      {dictionaryData.length === 0 && <RandomData />}
 
       {loading && <ActivityIndicator />}
       {errorMessage !== "" ? (
-        <Text>{errorMessage}</Text>
+        <View style={styles.errMsg}>
+          <Text>{errorMessage}</Text>
+        </View>
       ) : (
         <TouchableOpacity onPress={newScreen}>
           <SearchResult />
@@ -57,5 +60,10 @@ let styles = StyleSheet.create({
   random: {
     marginTop: 15,
     marginBottom: 20,
+  },
+  errMsg: {
+    justifyContent: "center",
+    alignItems: "center",
+    height: "50%",
   },
 });

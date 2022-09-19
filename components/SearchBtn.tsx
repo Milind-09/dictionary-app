@@ -23,7 +23,7 @@ export default function SearchBtn() {
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={getInputFunct}>
-        <Text>Search</Text>
+        <Text style={styles.btnTitle}>Search</Text>
       </TouchableOpacity>
     </View>
   );
@@ -32,8 +32,10 @@ export default function SearchBtn() {
 let styles = StyleSheet.create({
   button: {
     alignItems: "center",
-    backgroundColor: "#bcc3f8",
+    backgroundColor: "blue",
     padding: 10,
+    width: 140,
+    alignSelf: "center",
   },
   inputStyle: {
     borderBottomColor: "blue",
@@ -43,5 +45,8 @@ let styles = StyleSheet.create({
   searchInput: {
     padding: 10,
     outlineStyle: "none",
+  },
+  btnTitle: {
+    color: "white",
   },
 });

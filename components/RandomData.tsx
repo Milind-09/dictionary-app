@@ -4,19 +4,34 @@ import DictionaryContext from "../context/DictionaryContext";
 export default function RandomData() {
   let { randomData }: any = React.useContext(DictionaryContext);
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.random}>
-        <Text>{randomData.title}</Text>
+        <Text style={styles.randomTitle}>{randomData.title}</Text>
         <Text>
-          {randomData.word} {randomData.definition}
+          <Text style={styles.randWord}> {randomData.word}</Text> : {" "}
+          <Text>{randomData.definition}</Text>
         </Text>
       </View>
     </View>
   );
 }
 let styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+    alignItems: "center",
+    borderColor:"blue",
+    borderWidth:1,
+  },
   random: {
     marginTop: 15,
     marginBottom: 20,
   },
+  randomTitle: {
+    fontSize: 30,
+    fontWeight: "500",
+  },
+  randWord:{
+   fontSize:18,
+   fontWeight:"500",
+  }
 });

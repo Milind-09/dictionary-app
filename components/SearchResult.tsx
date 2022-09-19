@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, FlatList, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TouchableOpacity,
+  Button,
+  StyleSheet,
+} from "react-native";
 import DictionaryContext from "../context/DictionaryContext";
 
 export default function SearchResult() {
@@ -12,9 +19,10 @@ export default function SearchResult() {
         renderItem={(element) => {
           let { definition } = element.item;
           return (
-            <View>
+            <View style={styles.container}>
               <Text>
-                {word}: {definition}
+                <Text style={styles.wordTitle}>{word}</Text> {" : "} <Text>{definition}</Text>
+                
               </Text>
             </View>
           );
@@ -23,3 +31,15 @@ export default function SearchResult() {
     </View>
   );
 }
+let styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+    padding: 10,
+    alignItems: "center",
+    borderColor: "blue",
+    borderWidth: 1,
+  },
+  wordTitle:{
+    fontSize:18,
+  }
+});
