@@ -17,7 +17,7 @@ export default function reducer(state: any, action: any) {
         word: action.payload.word,
         loading: false,
         errorMessage: "",
-        randomData:{}
+        randomData: {},
       };
     case "ERROR_MESSAGE":
       return {
@@ -29,7 +29,14 @@ export default function reducer(state: any, action: any) {
       return {
         ...state,
         randomData: action.payload.randomData,
-        loading:false
+        loading: false,
+      };
+    case "DETAILS_DATA":
+      return {
+        ...state,
+        prounce: action.payload.prounce,
+        noun: action.payload.noun,
+        verb: action.payload.verb,
       };
   }
 }

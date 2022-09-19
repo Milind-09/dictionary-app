@@ -4,31 +4,32 @@ import {
   Text,
   StyleSheet,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import RandomData from "../components/RandomData";
 import SearchBtn from "../components/SearchBtn";
 import SearchResult from "../components/SearchResult";
 import DictionaryContext from "../context/DictionaryContext";
 
-export default function Home() {
-  let {
-    loading,
-    errorMessage,
-  }: any = React.useContext(DictionaryContext);
-
+export default function Home({navigation}:any) {
+  let { loading, errorMessage,detailsData }: any = React.useContext(DictionaryContext);
+function newScreen(){
+  navigation.navigate("Details")
+  detailsData()
+}
   return (
     <View style={styles.container}>
-      <SearchBtn/>
-      
-      {!loading && (
-        <RandomData/>
-      )}
+      <SearchBtn />
+
+      {!loading && <RandomData />}
 
       {loading && <ActivityIndicator />}
       {errorMessage !== "" ? (
         <Text>{errorMessage}</Text>
       ) : (
-        <SearchResult/>
+        <TouchableOpacity onPress={newScreen}>
+          <SearchResult />
+        </TouchableOpacity>
       )}
     </View>
   );

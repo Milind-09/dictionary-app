@@ -10,10 +10,16 @@ export default function DictionaryState({ children }: any) {
     dictionaryData: [],
     loading: true,
     errorMessage: "",
-    randomData: {title:"", word: "", definition: "" },
+    randomData: { title: "", word: "", definition: "" },
+    prounce: [],
+    noun:{},
+    verb:{}
   };
 
   let [state, dispatch] = useReducer(reducer, initialState);
+
+
+
   function inputFunct(text: string) {
     dispatch({
       type: "INPUT_VALUE",
@@ -54,16 +60,17 @@ export default function DictionaryState({ children }: any) {
   }
   async function randomApi() {
     state.loading = true;
-    let res = await axios.get("https://random-words-api.vercel.app/word/");
+    let res = await axios.get("https://random-words-api.vercel.app/word");
     let data = res.data;
     let { word } = data[0];
     let { definition } = data[0];
 
     let randomData = {
-      title:"Word of the day",
+      title: "Word of the day",
       word,
       definition,
     };
+
     dispatch({
       type: "GET_RANDOM_DATA",
       payload: {
@@ -71,12 +78,31 @@ export default function DictionaryState({ children }: any) {
       },
     });
   }
-
+  async function detailsData() {
+    try {
+      let res = await axios.get(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${state.word}`
+      );
+      let data = res.data;
+      let noun = data[0].meanings[0].definitions[0]
+      let verb = data[0].meanings[1].definitions[0]
+      
+      dispatch({
+        type: "DETAILS_DATA",
+        payload: {
+          prounce: data[0].phonetics[1],
+          noun,verb
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
   useEffect(() => {
     randomApi();
   }, []);
   return (
-    <DictionaryContext.Provider value={{ ...state, inputFunct, getInputFunct }}>
+    <DictionaryContext.Provider value={{ ...state, inputFunct, getInputFunct,detailsData }}>
       {children}
     </DictionaryContext.Provider>
   );
