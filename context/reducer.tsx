@@ -34,7 +34,7 @@ export default function reducer(state: any, action: any) {
     case "DETAILS_DATA":
       return {
         ...state,
-        prounce: action.payload.prounce,
+        pronounce: action.payload.pronounce,
         noun: action.payload.noun,
         verb: action.payload.verb,
       };

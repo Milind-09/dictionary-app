@@ -1,18 +1,21 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
+import AudioPlay from "../components/AudioPlay";
 import DictionaryContext from "../context/DictionaryContext";
 
 export default function Details() {
-  let { word, prounce, noun, verb }: any = React.useContext(DictionaryContext);
+  let { word, pronounce, noun, verb }: any = React.useContext(DictionaryContext);
 
-  
   
   return (
     <View>
       <View style={styles.item}>
         <Text>{word}</Text>
         <Text>Pronuunciation</Text>
-        <Text>{prounce.text}</Text>
+        <Text>{pronounce.text}</Text>
+        <View>
+          <AudioPlay/>
+        </View>
       </View>
 
       <View style={styles.item}>

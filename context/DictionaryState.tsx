@@ -11,14 +11,12 @@ export default function DictionaryState({ children }: any) {
     loading: true,
     errorMessage: "",
     randomData: { title: "", word: "", definition: "" },
-    prounce: [],
+    pronounce:{},
     noun:{},
     verb:{}
   };
 
   let [state, dispatch] = useReducer(reducer, initialState);
-
-
 
   function inputFunct(text: string) {
     dispatch({
@@ -84,14 +82,15 @@ export default function DictionaryState({ children }: any) {
         `https://api.dictionaryapi.dev/api/v2/entries/en/${state.word}`
       );
       let data = res.data;
+      let pronounce = data[0].phonetics[0]
+      
       let noun = data[0].meanings[0].definitions[0]
       let verb = data[0].meanings[1].definitions[0]
       
       dispatch({
         type: "DETAILS_DATA",
         payload: {
-          prounce: data[0].phonetics[1],
-          noun,verb
+          noun,verb,pronounce
         },
       });
     } catch (error) {
